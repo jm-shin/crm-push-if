@@ -1,0 +1,27 @@
+{
+  "name": "crm_push_if",
+  "version": "1.0.0",
+  "description": "push if: CRM agent server",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.12"
+  },
+  "dependencies": {
+    "dotenv": "^10.0.0",
+    "express": "^4.17.1",
+    "mongodb": "^4.1.1",
+    "mongoose": "^6.0.0",
+    "request": "^2.88.2",
+    "request-promise-native": "^1.0.9",
+    "toad-scheduler": "^1.5.0",
+    "winston": "^3.3.3",
+    "winston-daily-rotate-file": "^4.5.5"
+  }
+}
