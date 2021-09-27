@@ -14,14 +14,14 @@ export async function sendMessage(info) {
         },
     };
 
-    logger.info(`request : ${JSON.stringify(option)}`);
+    logger.info(`[push] request : ${JSON.stringify(option)}`);
 
     //api request
     await request(option).then((res) => {
         const resCode	= res.statusCode;
         const resBody	= res.body ? JSON.parse(res.body) : {};
 
-        logger.info(`push request success [res statusCode: ${resCode}][res body: ${JSON.stringify(resBody)}]`);
+        logger.info(`[push] request success [res statusCode: ${resCode}][res body: ${JSON.stringify(resBody)}]`);
 
         if( resBody['returnCode'] && resBody['returnCode'] != 200 ) {
             throw new Error(`returnCode is ${resBody['returnCode']}`);

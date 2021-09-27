@@ -11,17 +11,18 @@ function required(key, defaultValue = undefined) {
 
 export const config = {
     host: {
-        port: required('HOST_PORT')
+        port: parseInt(required('HOST_PORT', 4949)),
     },
     mongo: {
-        host: required('DB_MONGO_HOST')
+        host: required('DB_MONGO_HOST'),
+        appName: required('MONGO_APP_NAME'),
     },
     push_info: {
-        apiDomain:  required('PUSH_API_DOMAIN'),
-        apiURL:     required('PUSH_API_URL'),
+        apiDomain: required('PUSH_API_DOMAIN'),
+        apiURL: required('PUSH_API_URL'),
         apiHeaders: {
-            'Accept':         		'application/x-www-form-urlencoded;charset=UTF-8',
-            'Content-Type':   		'application/x-www-form-urlencoded',
+            'Accept': 'application/x-www-form-urlencoded;charset=UTF-8',
+            'Content-Type': 'application/x-www-form-urlencoded',
         }
     }
 }

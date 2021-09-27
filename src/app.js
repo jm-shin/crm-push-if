@@ -1,7 +1,7 @@
 import express from 'express';
 import { connectMongoDB } from './database/database.js';
 import { config } from '../config.js';
-import {watchMongodb} from './schedule.js'
+import { watchMongoDB } from './util/schedule.js'
 import logger from "./util/logger.js";
 
 const app = express();
@@ -14,8 +14,8 @@ connectMongoDB()
     })
     .catch(console.error);
 
-watchMongodb()
+watchMongoDB()
     .then(() => {
-        logger.info('watch start');
+        logger.info('[app] watch start');
     })
     .catch(console.error);
