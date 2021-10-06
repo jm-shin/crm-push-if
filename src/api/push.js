@@ -3,14 +3,14 @@ import { config } from "../../config.js";
 import logger from "../util/logger.js";
 
 export async function sendMessage(info) {
-    const { pushMessage, collection_name } = info;
+    const { message, collection_name } = info;
     const option = {
         url: config.push_info.apiDomain + config.push_info.apiURL + collection_name,
         method: 'POST',
         json: true,
         headers: config.push_info.apiHeaders,
         body: {
-            pushMessage: pushMessage
+            pushMessage: message
         },
     };
 
