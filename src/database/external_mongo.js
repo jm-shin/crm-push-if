@@ -26,7 +26,7 @@ const insertMany = function(array) {
             }
             logger.debug(`${desc} ${fn} client connect`);
 
-            const collectionName = array[0].collection;
+            const collectionName = array[0].collection_name;
 
             client.db(dbName).collection(collectionName).insertMany(array, function(err, result) {
                 logger.debug(`${desc} ${fn} client ${collectionName} insertMany`);
