@@ -17,7 +17,7 @@ const insertMany = function(array) {
     let result = [];
     return new Promise(function(resolve, reject) {
         //TODO: local test..
-        pool.connect(config.push_info.apiDomain, mongoOption,  function(err, client) {
+        pool.connect(config.mongo.ext_host, mongoOption,  function(err, client) {
             if (err) {
                 if (client) {
                     client.close(true);

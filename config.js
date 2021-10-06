@@ -16,6 +16,7 @@ export const config = {
     mongo: {
         host: required('DB_MONGO_HOST'),
         appName: required('MONGO_APP_NAME'),
+        ext_host: required('DB_MONGO_EXT')
     },
     push_info: {
         apiDomain: required('PUSH_API_DOMAIN'),
