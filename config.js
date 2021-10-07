@@ -22,8 +22,9 @@ export const config = {
         apiDomain: required('PUSH_API_DOMAIN'),
         apiURL: required('PUSH_API_URL'),
         apiHeaders: {
-            'Accept': 'application/x-www-form-urlencoded;charset=UTF-8',
-            'Content-Type': 'application/x-www-form-urlencoded',
+            "Accept": "application/json",
+            "Content-Type" : "application/json;charset=UTF-8",
+            "Content-Language": "en"
         }
     }
 }
