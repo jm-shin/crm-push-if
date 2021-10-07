@@ -1,8 +1,7 @@
-const { ToadScheduler, SimpleIntervalJob, Task  } = require('toad-scheduler');
+import { ToadScheduler, SimpleIntervalJob, Task } from 'toad-scheduler';
 import { getPushInfo } from '../database/database.js';
 import * as pushAPI from '../api/push.js';
 import logger from "./logger.js";
-import * as external_mongo from '../database/external_mongo.js'
 import wait from 'waait';
 
 export async function watchMongoDB () {
@@ -26,6 +25,7 @@ export async function watchMongoDB () {
                         acc.push(cur._id);
                         return acc;
                     }, []);
+
                     //push_info deleteMany
                     await getPushInfo().deleteMany({_id: {$in : docId }});
                     await wait(3000);
