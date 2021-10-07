@@ -3,30 +3,44 @@ import { config } from "../../config.js";
 import logger from "../util/logger.js";
 
 export async function sendMessage(info) {
-    const { message, collection_name } = info;
-    const option = {
-        url: config.push_info.apiDomain + config.push_info.apiURL + collection_name,
-        method: 'POST',
-        json: true,
-        headers: config.push_info.apiHeaders,
-        body: {
-            pushMessage: message
-        },
-    };
+    try {
+        const { message, collection_name, intent_url } = info;
+        const createdAt = info.created_at.toUTCString();
+        const option = {
+            url: config.push_info.apiDomain + config.push_info.apiURL + collection_name,
+            method: 'POST',
+            json: true,
+            headers: config.push_info.apiHeaders,
+            body: {
+                pushMessage: {
+                        contents:{
+                            en: message
+                        },
+                        send_after: createdAt,
+                    data: {
+                        deeplink: intent_url
+                    }
+                }
+            },
+        };
 
-    logger.info(`[push] request : ${JSON.stringify(option)}`);
+        logger.info(`[push] request : ${JSON.stringify(option)}`);
 
-    //api request
-    await request(option).then((res) => {
-        const resCode	= res.statusCode;
-        const resBody	= res.body ? JSON.parse(res.body) : {};
+        //api request
+        await request(option).then((res) => {
+            const resCode	= res.statusCode;
+            const resBody	= res.body ? JSON.parse(res.body) : {};
 
-        logger.info(`[push] request success [res statusCode: ${resCode}][res body: ${JSON.stringify(resBody)}]`);
+            logger.info(`[push] request success [res statusCode: ${resCode}][res body: ${JSON.stringify(resBody)}]`);
 
-        if( resBody['returnCode'] && resBody['returnCode'] != 200 ) {
-            throw new Error(`returnCode is ${resBody['returnCode']}`);
-        }
-    }).catch((err) => {
-        if (err) throw new Error(err);
-    });
+            if( resBody['returnCode'] && resBody['returnCode'] != 200 ) {
+                throw new Error(`returnCode is ${resBody['returnCode']}`);
+            }
+        }).catch((err) => {
+            if (err) throw new Error(err);
+        });
+
+    } catch (err) {
+        logger.error(err);
+    }
 }
