@@ -28,19 +28,21 @@ export async function sendMessage(info) {
 
         //api request
         await request(option).then((res) => {
-            const resCode	= res.statusCode;
-            const resBody	= res.body ? JSON.parse(res.body) : {};
-
-            logger.info(`[push] request success [res statusCode: ${resCode}][res body: ${JSON.stringify(resBody)}]`);
-
-            if( resBody['returnCode'] && resBody['returnCode'] != 200 ) {
-                throw new Error(`returnCode is ${resBody['returnCode']}`);
-            }
+            logger.info(`[api response] : ${res}`);
+            // if (typeof res.statusCode !== undefined) {
+            //     const resCode	= res.statusCode;
+            //     const resBody	= res.body ? JSON.parse(res.body) : {};
+            //
+            //     logger.info(`[push] request success [res statusCode: ${resCode}][res body: ${JSON.stringify(resBody)}]`);
+            //
+            //     if( resBody['returnCode'] && resBody['returnCode'] != 200 ) {
+            //         throw new Error(`returnCode is ${resBody['returnCode']}`);
+            //     }
+            // }
         }).catch((err) => {
             if (err) throw new Error(err);
         });
-
     } catch (err) {
-        logger.error(err);
+        throw new Error(err);
     }
 }
