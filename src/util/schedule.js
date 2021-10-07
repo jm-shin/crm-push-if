@@ -28,7 +28,7 @@ export async function watchMongoDB () {
 
                     //push_info deleteMany
                     await getPushInfo().deleteMany({_id: {$in : docId }});
-                    await wait(180000);
+                    await wait(300000);
                 } //else
                 await scheduleRestart(scheduler, job);
             }
