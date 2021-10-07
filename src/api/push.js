@@ -4,8 +4,9 @@ import logger from "../util/logger.js";
 
 export async function sendMessage(info) {
     try {
+        const curDate = new Date();
         const { message, collection_name, intent_url } = info;
-        const createdAt = info.created_at.toISOString().replace('T', ' ').slice(0, 19) + ' UTC+0900';
+        const createdAt = curDate.toISOString().replace('T', ' ').slice(0, 19) + ' UTC+0900';
         const option = {
             url: config.push_info.apiDomain + config.push_info.apiURL + collection_name,
             method: 'POST',
