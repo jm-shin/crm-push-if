@@ -1,4 +1,4 @@
-import { ToadScheduler, SimpleIntervalJob, Task  } from 'toad-scheduler';
+const { ToadScheduler, SimpleIntervalJob, Task  } = require('toad-scheduler');
 import { getPushInfo } from '../database/database.js';
 import * as pushAPI from '../api/push.js';
 import logger from "./logger.js";
