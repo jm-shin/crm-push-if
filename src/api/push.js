@@ -41,6 +41,7 @@ export async function sendMessage(info) {
             //     }
             // }
         }).catch((err) => {
+            logger.info(err);
             if (err) throw new Error(err);
         });
     } catch (err) {

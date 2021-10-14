@@ -20,8 +20,9 @@ export async function watchMongoDB () {
                     logger.info(`[schedule] push info: ${JSON.stringify(pushInfo)}`);
 
                     //wavve-push api request
-                    await pushAPI.sendMessage(pushInfo[0]);
+                    await pushAPI.sendMessage(pushInfo[0])
                     const docId = pushInfo.reduce((acc, cur, i) => {
+                        logger.info(`delete id: ${cur._id}`);
                         acc.push(cur._id);
                         return acc;
                     }, []);
