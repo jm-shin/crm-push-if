@@ -8,11 +8,15 @@ export async function sendMessage(info) {
         const { message, collection_name, intent_url } = info;
         const createdAt = curDate.toISOString().replace('T', ' ').slice(0, 19) + ' UTC+0900';
 
+        const trialDate = new Date();
+        trialDate.setHours(trialDate.getHours() + 9);
+        trialDate.setSeconds(trialDate.getSeconds() + 30);
+
         const pushMsg = {
             contents:{
                 en: message
             },
-            send_after: createdAt,
+            send_after: trialDate.toISOString().replace(/T|\..+/g, ' ') + 'UTC+0900',
             data: {
                 deeplink: intent_url
             }
@@ -22,7 +26,7 @@ export async function sendMessage(info) {
             method: 'POST',
             url: config.push_info.apiDomain + config.push_info.apiURL + collection_name,
             headers: config.push_info.apiHeaders,
-            body: {
+            form: {
                 pushMessage: JSON.stringify(pushMsg)
             },
         };
