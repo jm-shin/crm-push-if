@@ -5,7 +5,7 @@ import logger from "../util/logger.js";
 export async function sendMessage(info) {
     try {
         const curDate = new Date();
-        const { message, collection_name, intent_url } = info;
+        const { message, collection_name, intent_url, campaign_id } = info;
         const createdAt = curDate.toISOString().replace('T', ' ').slice(0, 19) + ' UTC+0900';
 
         const trialDate = new Date();
@@ -24,7 +24,7 @@ export async function sendMessage(info) {
 
         const option = {
             method: 'POST',
-            url: config.push_info.apiDomain + config.push_info.apiURL + collection_name,
+            url: config.push_info.apiDomain + config.push_info.apiURL + collection_name + `&rootId=crm${campaign_id}`,
             headers: config.push_info.apiHeaders,
             form: {
                 pushMessage: JSON.stringify(pushMsg)
