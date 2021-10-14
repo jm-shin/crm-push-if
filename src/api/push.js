@@ -7,21 +7,23 @@ export async function sendMessage(info) {
         const curDate = new Date();
         const { message, collection_name, intent_url } = info;
         const createdAt = curDate.toISOString().replace('T', ' ').slice(0, 19) + ' UTC+0900';
+
+        const pushMsg = {
+            contents:{
+                en: message
+            },
+            send_after: createdAt,
+            data: {
+                deeplink: intent_url
+            }
+        };
+
         const option = {
-            url: config.push_info.apiDomain + config.push_info.apiURL + collection_name,
             method: 'POST',
-            json: true,
+            url: config.push_info.apiDomain + config.push_info.apiURL + collection_name,
             headers: config.push_info.apiHeaders,
             body: {
-                pushMessage: {
-                        contents:{
-                            en: message
-                        },
-                        send_after: createdAt,
-                    data: {
-                        deeplink: intent_url
-                    }
-                }
+                pushMessage: JSON.stringify(pushMsg)
             },
         };
 
@@ -29,7 +31,7 @@ export async function sendMessage(info) {
 
         //api request
         await request(option).then((res) => {
-            logger.info(`[api response] : ${res}`);
+            logger.info(`[api response] : ${JSON.stringify(res)}`);
             // if (typeof res.statusCode !== undefined) {
             //     const resCode	= res.statusCode;
             //     const resBody	= res.body ? JSON.parse(res.body) : {};
